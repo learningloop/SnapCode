@@ -1,0 +1,97 @@
+<html>
+<head>
+<script src="http://angular-ui.github.com/lib/CodeMirror/lib/codemirror.js"></script>
+<script src="http://codemirror.net/mode/clike/clike.js"></script>
+<script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
+<link rel="stylesheet" href="http://angular-ui.github.com/lib/CodeMirror/lib/codemirror.css" >
+<script src="http://angular-ui.github.com/lib/CodeMirror/mode/javascript/javascript.js"></script>
+<link rel="stylesheet" href="http://angular-ui.github.com/lib/CodeMirror/theme/monokai.css" >
+<script type="text/javascript">
+
+
+
+function executeProgram(){
+
+if(document.getElementById("editorloaded").value=="0") {
+ 
+ myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
+  lineNumbers: true,
+        matchBrackets: true,
+        mode: "text/x-csrc",
+  theme: "monokai"
+});
+document.getElementById("editorloaded").value=1;
+
+} else {
+
+  var xmlHttp=null;
+
+    if (window.XMLHttpRequest) {
+        xmlHttp = new window.XMLHttpRequest;
+    }
+    else {
+        try {
+            xmlHttp =  new ActiveXObject("MSXML2.XMLHTTP.3.0");
+        }
+        catch(ex) {
+            xmlHttp = null;
+        }
+    }
+   
+    var code = myCodeMirror.getValue();
+
+   
+   
+    var url = "http://webenable.me/apps/snapide/execprog.php?code="+encodeURIComponent(code);
+   
+   
+    if(xmlHttp != null){
+        xmlHttp.onreadystatechange=function(){
+            if (xmlHttp.readyState == 4)
+            {
+                if(xmlHttp.status == 200){
+                    res = xmlHttp.responseText;
+                    if(res!=null){
+                        document.getElementById("result").innerHTML = res;
+                    } else {
+                        alert("Error while retrieving data. Please try again.");
+                        document.getElementById("result").innerHTML="&nbsp";
+                    }
+                } else if (xmlHttp.status == 404){
+                    alert("Request URL does not exist");
+                    document.getElementById("result").innerHTML="&nbsp";
+                } else {
+                    alert("Error: status code is (2):" + xmlHttp.status);   
+                    document.getElementById("result").innerHTML="&nbsp";
+                }
+            }
+        };
+        xmlHttp.open("GET",url,true);
+        xmlHttp.send(null);
+        return true;
+    } else {
+        alert('Your browser doesn\'t support AJAX');
+        return;       
+    }
+   
+    }
+
+};
+
+</script>
+</head>
+<body style="font-size:2rem;font-family:courier;margin:0 auto;">
+<input type="hidden" id="editorloaded" name="editorloaded" value=0 />
+<textarea id="code" name="code" title="Write some program here">
+</textarea>
+<a href="#" onclick="executeProgram();">EXECUTE</a> > SAVE > CLEAR > SHARE
+<hr>
+RESULT:<br>
+<div id="result"></div>
+<script type="text/javascript">
+executeProgram();
+</script>
+SnapIDE uses <a href="http://ideone.com">ideone.com</a> &copy;
+by <a href="http://sphere-research.com">Sphere Research Labs</a>
+</body>
+</html>

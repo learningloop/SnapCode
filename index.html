@@ -1,16 +1,20 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<script src="https://github.com/codemirror/CodeMirror/blob/master/lib/codemirror.js"></script>
-<script src="http://codemirror.net/mode/clike/clike.js"></script>
+<title>SnapCode - Online Code Editor built using CodeMirror and IDEONE</title>
+<meta charset="utf-8">
+<script src="http://codemirror.net/lib/codemirror.js"></script>
+<script src="http://codemirror.net/mode/javascript/javascript.js"></script>
 <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
-<link rel="stylesheet" href="https://github.com/codemirror/CodeMirror/blob/master/lib/codemirror.css" >
-<script src="https://github.com/codemirror/CodeMirror/blob/master/mode/javascript/javascript.js"></script>
-<script src="https://github.com/codemirror/CodeMirror/blob/master/keymap/vim.js"></script>
-<link rel="stylesheet" href="https://github.com/codemirror/CodeMirror/blob/master/theme/monokai.css" >
+<link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css" type="text/css">
+<script src="http://codemirror.net/mode/clike/clike.js"></script>
+<script src="http://codemirror.net/keymap/vim.js"></script>
+<link rel="stylesheet" href="http://codemirror.net/theme/monokai.css" type="text/css">
+<style>
+ @font-face { font-family: EnvyCodeR; src: url('EnvyCodeR.ttf'); }
+ .CodeMirror {font-family: EnvyCodeR}
+</style>
 <script type="text/javascript">
-
-
-
 function executeProgram(){
 
 if(document.getElementById("editorloaded").value=="0") {
@@ -81,10 +85,11 @@ document.getElementById("editorloaded").value=1;
 
 </script>
 </head>
-<body style="font-size:2rem;font-family:courier;margin:0 auto;">
+<body style="font-size:11pt;font-family:EnvyCodeR,courier;margin:0 auto;">
 <input type="hidden" id="editorloaded" name="editorloaded" value=0 />
-<textarea id="code" name="code" title="Write some program here">
+<textarea id="code" name="code" title="Write some program here" >
 </textarea>
+<div style="padding:5px">
 <a href="#" onclick="executeProgram();">EXECUTE</a> > SAVE > CLEAR > SHARE
 <hr>
 RESULT:<br>
@@ -92,7 +97,8 @@ RESULT:<br>
 <script type="text/javascript">
 executeProgram();
 </script>
-SnapIDE uses <a href="http://ideone.com">ideone.com</a> &copy;
-by <a href="http://sphere-research.com">Sphere Research Labs</a>
+SnapCode uses <a href="http://ideone.com">ideone.com</a> &copy;
+by <a href="http://sphere-research.com">Sphere Research Labs</a> &amp; CodeMirror for UI.
+</div>
 </body>
 </html>
